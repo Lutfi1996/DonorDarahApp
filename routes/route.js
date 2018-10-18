@@ -8,6 +8,7 @@ var role = require('../controllers/m_role');
 var pendonor = require('../controllers/t_pendonor');
 var middleware = require('../middleware/checktoken');
 var validasi = require('../controllers/validate');
+var val_rolemenu = require('../controllers/val_roleuser')
 // Import Restify Module
 const restify = require('restify');
 
@@ -58,7 +59,8 @@ module.exports = exports = function(server){
     server.get('/api/validate/checkclient/:name', validasi.checkClient);
     server.get('/api/validate/checkrole/:name', validasi.checkRoleName);
 
-
+    //validate role + menu
+    server.get('/api/validate/checkMenu/:id_role',  middleware.checkToken, val_rolemenu.valRoleMenu);
 
     // error handler
     server.use(function(err, req, res, next) {
