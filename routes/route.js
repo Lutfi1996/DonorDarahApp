@@ -60,7 +60,7 @@ module.exports = exports = function(server){
     server.get('/api/validate/checkrole/:name', validasi.checkRoleName);
 
     //validate role + menu
-    server.get('/api/validate/checkMenu/:id_role',  middleware.checkToken, val_rolemenu.valRoleMenu);
+    server.get('/api/validate/checkMenu/:id_role',  middleware.checkToken, val_rolemenu.checkMenuRole);
 
     // error handler
     server.use(function(err, req, res, next) {

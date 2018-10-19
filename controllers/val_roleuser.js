@@ -36,13 +36,19 @@ const valRoleMenu = {
                   },
                   {
                     $unwind : "$menu_lookup"
-                  }
+                  },
                   //{
                   //  $group : 
                   //  {
                   //    _id : "$menu_lookup.id_menu"
                   //  }
                   //},
+                  {
+                      $match :
+                      {
+                          id_role : id_role
+                      }
+                  }
                 //   {
                 //     $project:
                 //     {
