@@ -2,12 +2,12 @@
 
 const Response = require('../config/response')
 const ObjectID = require('mongodb').ObjectID;
-const clientModel = require('../models/m_client.model');
+const menuModel = require('../models/m_menu.model');
 const roleModel = require('../models/m_role.model');
 
 const valRoleMenu = {
     checkMenuRole : (req, res, next) => {
-        var id_role = req.params.id_role;
+        // var id_role = req.params.id_role;
 
         // if(nama_client == null){
         //     Response.send(res, 403, "You are not authorized");
@@ -23,6 +23,9 @@ const valRoleMenu = {
                     }
                   },
                   {
+                    $unwind : "$role_lookup"
+                  },
+                  {
                     $lookup:
                     {
                       from : "m_menu",
@@ -30,9 +33,6 @@ const valRoleMenu = {
                       foreignField : "_id",
                       as : "menu_lookup"
                     }
-                  },
-                  {
-                    $unwind : "$role_lookup"
                   },
                   {
                     $unwind : "$menu_lookup"
@@ -46,18 +46,18 @@ const valRoleMenu = {
                   {
                       $match :
                       {
-                          id_role : id_role
+                          '_id' : ObjectID(id_role)
                       }
+                  },
+                  {
+                    $project:
+                    {
+                     'id_role' : "$_id",
+                     'nama_role' : "$role",
+                     'id_menu' : "$menu_lookup._id",
+                     'nama_menu' : "$menu_lookup.menu_name"
+                    }
                   }
-                //   {
-                //     $project:
-                //     {
-                //   //   id_role : "$_id",
-                //      nama_role : "$role",
-                //      id_menu : "$menu_lookup._id",
-                //      nama_menu : "$menu_lookup.menu_name"
-                //     }
-                //   },
                 //   {
                 //     $match : { nama_role : "Staff" }
                 , (err, data) => {
@@ -67,6 +67,7 @@ const valRoleMenu = {
                     //     content : { "_id" : ObjectID(data._id), "nama" : data.nama_client }
                     // };
                     Response.send(res, 200, data);
+                    next();
                 }else{
                     Response.send(res, 200, "not exist");
                 }
