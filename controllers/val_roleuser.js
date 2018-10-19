@@ -7,7 +7,7 @@ const roleModel = require('../models/m_role.model');
 
 const valRoleMenu = {
     checkMenuRole : (req, res, next) => {
-        // var id_role = req.params.id_role;
+        var id_role = global.user.id_role;
 
         // if(nama_client == null){
         //     Response.send(res, 403, "You are not authorized");
