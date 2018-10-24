@@ -3,7 +3,6 @@
 const Response = require('../config/response')
 const ObjectID = require('mongodb').ObjectID;
 const menuModel = require('../models/m_menu.model');
-const roleModel = require('../models/m_role.model');
 
 const valRoleMenu = {
     checkMenuRole : (req, res, next) => {
@@ -12,8 +11,8 @@ const valRoleMenu = {
         // if(nama_client == null){
         //     Response.send(res, 403, "You are not authorized");
         // }else{
-            global.dbo.collection('m_role').aggregate(
-                    {
+            global.dbo.collection('m_role').aggregate([
+                {
                     $lookup:
                     {
                       from : "m_menu_access",
@@ -37,12 +36,6 @@ const valRoleMenu = {
                   {
                     $unwind : "$menu_lookup"
                   },
-                  //{
-                  //  $group : 
-                  //  {
-                  //    _id : "$menu_lookup.id_menu"
-                  //  }
-                  //},
                   {
                       $match :
                       {
@@ -52,27 +45,28 @@ const valRoleMenu = {
                   {
                     $project:
                     {
-                     'id_role' : "$_id",
+                    //  'id_role' : "$_id",
                      'nama_role' : "$role",
-                     'id_menu' : "$menu_lookup._id",
+                    //  'id_menu' : "$menu_lookup._id",
                      'nama_menu' : "$menu_lookup.menu_name"
                     }
                   }
-                //   {
-                //     $match : { nama_role : "Staff" }
-                , (err, data) => {
+                ]).toArray ((err, data ) => {
                 if(data){
                     // let doc = {
                     //     message : "existing",
-                    //     content : { "_id" : ObjectID(data._id), "nama" : data.nama_client }
+                    //     content : { "_id" : ObjectID(data._id),
+                    //                 "role" : data.role
+                    //             }
                     // };
                     Response.send(res, 200, data);
+                    // console.log(data);
                     next();
                 }else{
                     Response.send(res, 200, "not exist");
                 }
-            });
-    },
+            })
+    }
 };
 
 module.exports = valRoleMenu;
