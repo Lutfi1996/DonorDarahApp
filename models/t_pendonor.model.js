@@ -17,6 +17,7 @@ function model (entity)
     this.updated_date   =   entity.updated_date;
     this.updated_by     =   entity.updated_by;
     this.status         =   entity.status;
+    this.golongan       =   entity.golongan;
 }
 
 model.prototype.getData = function()
@@ -36,7 +37,8 @@ model.prototype.getData = function()
 		created_by      : this.created_by,
 		updated_date    : this.updated_date,
 		updated_by      : this.updated_by,
-		status          : this.status
+        status          : this.status,
+        golongan          : this.golongan
     };
 };
 

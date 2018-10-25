@@ -13,7 +13,7 @@ const now = new Date();
 
 const PendonorController = {
     GetAll : (req, res, next) => {
-        global.dbo.collection('t_pendonor').db.t_pendonor.aggregate([
+        global.dbo.collection('t_pendonor').aggregate([
             {
               $lookup:
               {
@@ -35,10 +35,22 @@ const PendonorController = {
             {
               $project:
               {
-                KODE : "$_id",
-                NAMA : "$nama_lengkap",
-                goldar : "$goldar_lookup.golongan",
-                _id : 0
+                nama_lengkap    : "$nama_lengkap",
+                no_ktp          : "$no_ktp",
+                tanggal_lahir   : "$tanggal_lahir",
+                alamat          : "$alamat",
+                jenis_kelamin   : "$jenis_kelamin",
+                no_telp         : "$no_telp",
+                tanggal_donor   : "$tanggal_donor",
+                status_donor    : "$status_donor",
+                id_goldarah     : "$id_goldarah",
+                created_date    : "$created_date",
+                created_by      : "$created_by",
+                updated_date    : "$updated_date",
+                updated_by      : "$updated_by",
+                status          : "$status",
+                golongan        : "$goldar_lookup.golongan",
+                _id             : 1
               }
             }
             ]).toArray((err, data) => {
@@ -49,8 +61,8 @@ const PendonorController = {
             let modelCollection = data.map((entity) => {
                 return new pendonorModel(entity);
             });
-
-            Response.send(res, 200, modelCollection);
+            // console.log(data)
+            Response.send(res, 200, data);
         });
     },
 
