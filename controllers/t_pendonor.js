@@ -13,7 +13,35 @@ const now = new Date();
 
 const PendonorController = {
     GetAll : (req, res, next) => {
-        global.dbo.collection('t_pendonor').find({status : false}).toArray((err, data) => {
+        global.dbo.collection('t_pendonor').db.t_pendonor.aggregate([
+            {
+              $lookup:
+              {
+                from : "m_goldarah",
+                localField : "id_goldarah",
+                foreignField : "_id",
+                as : "goldar_lookup"
+              }
+            },
+            {
+              $unwind : "$goldar_lookup"
+            },
+            {
+              $match :
+              {
+                status : false
+              }
+            },
+            {
+              $project:
+              {
+                KODE : "$_id",
+                NAMA : "$nama_lengkap",
+                goldar : "$goldar_lookup.golongan",
+                _id : 0
+              }
+            }
+            ]).toArray((err, data) => {
             if(err){
                 return next(new Error());
             }
