@@ -58,9 +58,10 @@ const PendonorController = {
                 return next(new Error());
             }
             
-            let modelCollection = data.map((entity) => {
-                return new pendonorModel(entity);
-            });
+            // let modelCollection = data.map((entity) => {
+            //     return new pendonorModel(entity);
+            // });
+            
             // console.log(data)
             Response.send(res, 200, data);
         });
@@ -231,7 +232,7 @@ const PendonorController = {
             deletemodel.no_telp = oldmodel[0].no_telp;
             deletemodel.tanggal_donor = oldmodel[0].tanggal_donor;
             deletemodel.status_donor = oldmodel[0].status_donor;
-            deletemodel.id_goldarah = ObjectID(oldmodel[0].id_goldarah);
+            deletemodel.id_godlarah = ObjectID(oldmodel[0].id_goldarah);
             deletemodel.created_date = oldmodel[0].created_date;
             deletemodel.created_by = oldmodel[0].created_by;
             deletemodel.updated_date = now;

@@ -125,3 +125,7 @@
 {"message":"[DATABASE]mongodb://localhost:27017/db_donordarah connected","level":"info"}
 {"message":"Donor Darah API memanggil host http://[::]:8000 pada hari Thursday, 25-10-2018, 11:42:27","level":"info"}
 {"message":"::1 - - [25/Oct/2018:16:42:31 +0000] \"GET /api/pendonor/ HTTP/1.1\" 200 485 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36\"\n","level":"info"}
+{"message":"[DATABASE]mongodb://localhost:27017/db_donordarah connected","level":"info"}
+{"message":"Donor Darah API memanggil host http://[::]:8000 pada hari Thursday, 25-10-2018, 11:44:10","level":"info"}
+{"message":"[DATABASE]mongodb://localhost:27017/db_donordarah connected","level":"info"}
+{"message":"Donor Darah API memanggil host http://[::]:8000 pada hari Thursday, 25-10-2018, 11:55:04","level":"info"}
